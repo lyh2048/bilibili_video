@@ -10,7 +10,7 @@ pip install requests
 
 2、修改代码中的BV号
 
-![image-20211021185130508](./assets\image-20211021185130508.png)
+![image-20211021185130508](./assets/image-20211021185130508.png)
 
 3、运行程序
 
