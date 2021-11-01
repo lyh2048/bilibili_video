@@ -10,7 +10,7 @@ headers = {
 'referer': 'https://www.bilibili.com',
 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 Edg/94.0.992.50'
 }
-bv = 'BV1zU4y1F7vi'
+bv = 'BV1Pr4y1C7BR'
 url = 'https://www.bilibili.com/video/%s' % bv
 save_path = './temp/'
 
@@ -34,8 +34,14 @@ if __name__ == '__main__':
     assert len(result) > 0
     play_info = result[0]
     play_info = json.loads(play_info)
-    video_list = play_info['data']['dash']['video']
-    audio_list = play_info['data']['dash']['audio']
+    video_list = []
+    audio_list = []
+    try:
+        video_list = play_info['data']['dash']['video']
+        audio_list = play_info['data']['dash']['audio']
+    except:
+        print(play_info)
+        exit(-1)
     assert len(video_list) > 0
     assert len(audio_list) > 0
     video_url = video_list[0]['baseUrl']
