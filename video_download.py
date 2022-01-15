@@ -22,9 +22,17 @@ class VideoDownload:
         self.download_url_list = []
 
     def run(self):
-        # 创建临时文件夹
-        if not os.path.exists(TEMP_PATH):
-            os.makedirs(TEMP_PATH)
+        try:
+            # 创建输出文件夹
+            if not os.path.exists(self.output):
+                os.makedirs(self.output)
+            # 创建临时文件夹
+            if not os.path.exists(TEMP_PATH):
+                os.makedirs(TEMP_PATH)
+        except Exception as e:
+            print("创建目录失败")
+            print("Error: %s" % e)
+            exit(-1)
         try:
             self.check_video_url()
             self.get_video_info()
@@ -48,6 +56,8 @@ class VideoDownload:
         except Exception as e:
             print("Error: %s" % e)
             exit(-1)
+        # 删除缓存文件
+        self.clean_temp_file()
 
     def get_video_info(self):
         resp = self.request.get(f'https://api.bilibili.com/x/player/pagelist?bvid={self.bv}&jsonp=jsonp', headers=self.headers)
@@ -111,3 +121,14 @@ class VideoDownload:
         with open(path, 'wb') as f:
             for chunk in tqdm(iterable=resp.iter_content(chunk_size), total=math.ceil(file_size/1024/1024), desc='正在下载', unit='MB'):
                 f.write(chunk)
+    
+    def clean_temp_file(self):
+        try:
+            del_list = os.listdir(TEMP_PATH)
+            for f in del_list:
+                file_path = os.path.join(TEMP_PATH, f)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+        except Exception as e:
+            print("Error: %s" % e)
+            exit(-1)
