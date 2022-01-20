@@ -41,9 +41,12 @@ python main.py -url https://www.bilibili.com/video/BV1Gr4y1m7AD?spm_id_from=333.
 > 哔哩哔哩 (゜-゜)つロ 干杯~-bilibili
 >
 > optional arguments:
->   -h, --help      show this help message and exit
->   -url URL        视频的URL
->   -output OUTPUT  视频的保存位置
+>
+> -h, --help      show this help message and exit
+>
+> -url URL        视频的URL
+>
+> -output OUTPUT  视频的保存位置
 
 ## 注意
 
